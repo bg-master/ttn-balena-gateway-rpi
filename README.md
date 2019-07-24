@@ -1,5 +1,5 @@
 # Introduction
-This [balenaCloud](https://www.balena.io/cloud/) (previously resin.io) setup is based on the [Multi-protocol Packet Forwarder by Jac Kersing](https://github.com/kersing/packet_forwarder/tree/master/mp_pkt_fwd).
+This [balenaCloud](https://www.balena.io/cloud/) setup is based on the [Multi-protocol Packet Forwarder by Jac Kersing](https://github.com/kersing/packet_forwarder/tree/master/mp_pkt_fwd).
 
 An alternative guide to use this balenaCloud setup can be found in the official TTN documentation at: https://www.thethingsnetwork.org/docs/gateways/rak831/
 
@@ -17,6 +17,7 @@ Currently any Raspberry Pi with one of the following gateway boards, communicati
 * [LinkLabs Raspberry Pi "Hat"](http://link-labs.myshopify.com/products/lorawan-raspberry-pi-board)
 * [RisingHF IoT Dicovery](http://www.risinghf.com/product/risinghf-iot-dicovery/?lang=en)
 * [RAK831](http://www.rakwireless.com/en/WisKeyOSH/RAK831)
+* [RAK2245](https://www.rakwireless.com/en/new_product)
 
 ## Prerequisites
 
@@ -42,7 +43,7 @@ For a more complete list of possible environment variables, see [CONFIGURATION](
 
 For example, for an IMST iC880A or RAK831 with no GPS, the MINIMUM environment variables that you should configure at this screen should look something like this:
 
-Name      	  	   | Value  
+Name      	  | Value  
 ------------------|--------------------------  
 GW_ID             | The gateway ID from the TTN console
 GW_KEY            | The gateway KEY from the TTN console
@@ -50,18 +51,28 @@ GW_RESET_PIN      | 22 (optional)
 
 GW_RESET_PIN can be left out if you are using Gonzalo Casas' backplane board, or any other setup using pin 22 as reset pin. This is because pin 22 is the default reset pin used by this balenaCloud setup.
 
-
 ### Device environment variables - with GPS
 
 For example a LinkLabs gateway, which has a built-in GPS, you need:
 
-Name      	  	   | Value  
+Name      	  | Value  
 ------------------|--------------------------
 GW_ID             | The gateway ID from the TTN console
 GW_KEY            | The gateway KEY from the TTN console
 GW_GPS            | true
 GW_RESET_PIN      | 29
 
+### Device environment variables - RAK2245
+
+For example a RAK2245 gateway, which has a built-in GPS, you need:
+
+Name      	  | Value  
+------------------|--------------------------
+GW_ID             | The gateway ID from the TTN console
+GW_KEY            | The gateway KEY from the TTN console
+GW_GPS            | true
+GW_RESET_PIN      | 11
+SPI_SPEED         | 2000000
 
 ## Reset pin values
 
@@ -78,6 +89,7 @@ Rising HF Board<br />http://www.risinghf.com/product/risinghf-iot-dicovery/?lang
 IMST backplane or Lite gateway<br />https://wireless-solutions.de/products/long-range-radio/lora_lite_gateway.html | 29 (untested)
 Coredump backplane<br />https://github.com/dbrgn/ic880a-backplane/<br />https://shop.coredump.ch/product/ic880a-lorawan-gateway-backplane/ | 22
 RAK backplane<br /> | 11
+RAK2245 Pi HAT Edition<br />https://store.rakwireless.com/products/rak2245-pi-hat| 11
 Pi Supply IoT LoRa Gateway HAT for Raspberry Pi<br />https://uk.pi-supply.com/products/iot-lora-gateway-hat-for-raspberry-pi | 15
 
 
