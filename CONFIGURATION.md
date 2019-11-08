@@ -37,6 +37,12 @@
   * Globally enable (or disable) transmissions for this gateway.
 * GW_ANTENNA_GAIN optional - default 0.
   * Set this to the dBd gain of your antenna. The dBd value is the dBi value minus 2.15dB, ie. dBd = dBi-2.15. This is used to reduce the TX power of the concentrator to stay within the legal limits.
+* GW_PUSH_TIMEOUT optional - default 100.
+  * Sets the timeout in milliseconds to wait for an acknowledgement of PUSH messages from the upstream server. If your gateway is located in South Africa this needs to be set to at least more than 170ms to compensate for the internet latency to Europe.
+* GW_AUTOQUIT_THRESHOLD optional - default 0/disabled.
+  * The number of allowed PULL_ACKs to be missed on Semtech UDP connections before the packet forwarder restarts.
+* GW_LOGGER optional - default false.
+  * Log received LoRaWAN packets to the console. This will increase the amount of logging to Balena and increase data usage.
 * FREQ_PLAN_URL optional - default `https://account.thethingsnetwork.org/api/v2/frequency-plans/EU_863_870`
   * The URL where the base configuration file and frequency plan should be downloaded from. This is overwritten by the URL given by the TTN account server when using the TTN gateway connector protocol.
 * SPI_SPEED optional - default 8000000.

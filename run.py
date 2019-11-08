@@ -3,6 +3,8 @@
 Author: JP Meijers
 Date: 2017-02-26
 Based on: https://github.com/rayozzie/ttn-resin-gateway-rpi/blob/master/run.sh
+
+2019-11-08: Modified by pe1mew to add GW_LOGGER and GW_AUTOQUIT_THRESHOLD
 """
 import os
 import os.path
@@ -200,6 +202,7 @@ gateway_conf['gateway_ID'] = my_eui
 gateway_conf['contact_email'] = os.getenv('GW_CONTACT_EMAIL', "")
 gateway_conf['description'] = description
 gateway_conf['stat_file'] = 'loragwstat.json'
+gateway_conf['push_timeout_ms'] = int(os.getenv("GW_PUSH_TIMEOUT", 100)) # Default in code is 100
 
 if(os.getenv('GW_LOGGER', "false")=="true"):
   gateway_conf['logger'] = True
@@ -244,6 +247,16 @@ else:
   gateway_conf['gps'] = False
   gateway_conf['fake_gps'] = False
 
+# Log all LoRaWAN packets to console
+if(os.getenv('GW_LOGGER', "false")=="true"):
+  gateway_conf['logger'] = True
+  print ("Packet logging enabled")
+
+# Autoquit when a number of PULL_ACKs have been missed
+autoquit_threshold = int(os.getenv('GW_AUTOQUIT_THRESHOLD', 0))
+if(autoquit_threshold > 0):
+  gateway_conf['autoquit_threshold'] = int(os.getenv('GW_AUTOQUIT_THRESHOLD', 5))
+  print ("Autoquit after", gateway_conf['autoquit_threshold'], "missed PULL_ACKs")
 
 # Add server configuration
 gateway_conf['servers'] = []

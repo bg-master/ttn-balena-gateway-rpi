@@ -81,6 +81,20 @@ cp config.mk.in config.mk
 make -j$(nproc)
 cp bin/libttn-gateway-connector.so /usr/lib/
 
+# Some custom changes
+cd $INSTALL_DIR/dev/packet_forwarder/mp_pkt_fwd/inc/
+
+sed -i -e 's/#define DEBUG_PKT_FWD .*$/#define DEBUG_PKT_FWD 1/g' trace.h
+sed -i -e 's/#define DEBUG_JIT .*$/#define DEBUG_JIT 1/g' trace.h
+sed -i -e 's/#define DEBUG_JIT_ERROR .*$/#define DEBUG_JIT_ERROR 1/g' trace.h
+# Timersync prints out way too much, so disable
+sed -i -e 's/#define DEBUG_TIMERSYNC .*$/#define DEBUG_TIMERSYNC 0/g' trace.h
+sed -i -e 's/#define DEBUG_BEACON .*$/#define DEBUG_BEACON 1/g' trace.h
+sed -i -e 's/#define DEBUG_LOG .*$/#define DEBUG_LOG 1/g' trace.h
+sed -i -e 's/#define DEBUG_FOLLOW .*$/#define DEBUG_FOLLOW 1/g' trace.h
+
+
+
 cd $INSTALL_DIR/dev/packet_forwarder/mp_pkt_fwd/
 make -j$(nproc)
 
